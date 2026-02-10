@@ -1,0 +1,31 @@
+# simple production compose code START
+# services:
+#   server:
+#     build:
+#       context: .
+#     environment:
+#       NODE_ENV: production
+#     ports:
+#       - 8080:8080
+# simple production compose code END
+
+services:
+  angular-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: angular-docker-sample
+    ports:
+      - "8080:8080"
+
+  angular-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
